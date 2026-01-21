@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oakville Barbershop | Master Barber Since 2009</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <style>
+        /* PILLAR 5: CONGRUENCY - Design Token System
+        */
+        :root {
+            --paper-white: #FAFAF9;
+            --jet-black: #191918;
+            --slate-blue: #37536D;
+            --honey-gold: #F29E0C; /* PILLAR 4: Strategic Accent */
+            --stone-beige: #E9E7E1;
+            --iron-gray: #4A4A4A;
+            
+            --container-width: 1140px; /* PILLAR 1: Foundation */
+            --section-padding: 150px;  /* PILLAR 2: Signature Space */
+            
+            --shadow-soft: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+            --shadow-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Reset & Base */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--paper-white); 
+            color: var(--jet-black); 
+            font-family: 'Lato', sans-serif; 
+            line-height: 1.8; /* PILLAR 2: Readability */
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; line-height: 1.1; }
+        a { text-decoration: none; color: inherit; transition: 0.3s ease; }
+        ul { list-style: none; }
+
+        .container { max-width: var(--container-width); margin: 0 auto; padding: 0 24px; }
+        .section { padding: var(--section-padding) 0; }
+
+        /* PILLAR 8: INTERACTION - Premium Feedback
+        */
+        .btn {
+            display: inline-block;
+            background-color: var(--honey-gold);
+            color: var(--jet-black);
+            padding: 20px 48px;
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-premium);
+            filter: brightness(1.05);
+        }
+
+        /* Navigation */
+        nav {
+            height: 90px;
+            background: rgba(250, 250, 249, 0.95);
+            backdrop-blur: 10px;
+            border-bottom: 1px solid var(--stone-beige);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .logo { font-size: 24px; font-weight: 900; font-family: 'Playfair Display', serif; }
+        .nav-links { display: flex; gap: 40px; align-items: center; }
+        .nav-links a { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--honey-gold); }
+
+        /* Hero Section - CA.DA.CA: CAPTURE */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://ik.imagekit.io/puuz06/0c8c4221-24ba-424d-8591-0c851fd704be.png') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content h1 { font-size: 72px; margin-bottom: 24px; }
+        .hero-content p { font-size: 20px; max-width: 700px; margin: 0 auto 40px; color: rgba(255,255,255,0.9); }
+        .hero-tagline { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-top: 20px; opacity: 0.8; }
+
+        /* Testimonials - Pillar 5: Social Proof */
+        .testimonials-grid { display: grid; grid-cols: 1; gap: 32px; margin-top: 64px; }
+        @media (min-width: 768px) { .testimonials-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        .testimonial-card {
+            background: #fff;
+            padding: 48px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--stone-beige);
+        }
+
+        .stars { color: var(--honey-gold); margin-bottom: 16px; font-size: 20px; }
+        .testimonial-text { font-style: italic; color: var(--iron-gray); margin-bottom: 24px; }
+        .client-info { display: flex; align-items: center; gap: 16px; }
+        .avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--stone-beige); display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--slate-blue); }
+
+        /* About Section - CA.DA.CA: DIRECT */
+        .split-section { display: flex; flex-direction: column; gap: 80px; align-items: center; }
+        @media (min-width: 1024px) { .split-section { flex-direction: row; } }
+
+        .split-image { flex: 1; position: relative; }
+        .split-image img { width: 100%; border-radius: 16px; box-shadow: var(--shadow-premium); position: relative; z-index: 2; }
+        .split-image::after { content: ''; position: absolute; top: -20px; left: -20px; width: 100%; height: 100%; border: 2px solid var(--honey-gold); border-radius: 16px; z-index: 1; }
+        
+        .split-content { flex: 1; }
+        .split-content h2 { font-size: 48px; margin-bottom: 32px; }
+        .split-content p { margin-bottom: 24px; font-size: 18px; color: var(--iron-gray); }
+
+        /* Services - Pillar 10: Specificity */
+        .services-list { margin-top: 48px; }
+        .service-item { display: flex; justify-content: space-between; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--stone-beige); }
+        .service-name { font-weight: 700; font-size: 20px; }
+        .service-price { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--honey-gold); font-weight: 900; }
+        .service-desc { font-size: 14px; color: var(--iron-gray); opacity: 0.8; }
+
+        /* Booking Calendar Styles */
+        .calendar-day {
+            transition: all 0.2s;
+        }
+        .calendar-day:hover:not(.disabled) {
+            transform: scale(1.05);
+        }
+        .time-slot {
+            transition: all 0.2s;
+        }
+        .time-slot:hover:not(.booked) {
+            transform: translateY(-2px);
+        }
+
+        /* Logistics Section - Google Maps Integration */
+        .logistics { display: grid; grid-template-columns: 1fr; min-height: 600px; }
+        @media (min-width: 1024px) { .logistics { grid-template-columns: 1fr 1fr; } }
+        
+        .map-container { width: 100%; height: 100%; min-height: 400px; }
+        .map-container iframe { width: 100%; height: 100%; border: none; }
+
+        .contact-info { background: var(--jet-black); color: #fff; padding: 80px; display: flex; flex-direction: column; justify-content: center; }
+        .contact-info h2 { font-size: 40px; margin-bottom: 48px; }
+        .info-group { margin-bottom: 40px; }
+        .info-label { color: var(--honey-gold); text-transform: uppercase; font-size: 12px; font-weight: 900; letter-spacing: 2px; margin-bottom: 16px; display: block; }
+        
+        .hours-row { display: flex; justify-content: space-between; font-size: 14px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .contact-link { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 700; margin-top: 12px; }
+        .contact-link .material-symbols-outlined { color: var(--honey-gold); }
+        .contact-link:hover { opacity: 0.8; }
+
+        /* Footer */
+        footer { background: var(--jet-black); color: #fff; padding: 80px 0 40px; text-align: center; }
+        .footer-logo { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; margin-bottom: 24px; }
+        .copyright { font-size: 12px; opacity: 0.6; margin-top: 48px; }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 48px; }
+            .split-content h2, h2 { font-size: 36px !important; }
+            .section { padding: 80px 0; }
+            .contact-info { padding: 40px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="container">
+            <div class="nav-inner">
+                <div class="logo">Oakville Barbershop</div>
+                <div class="nav-links">
+                    <a href="#services">SERVICES</a>
+                    <a href="#about">ABOUT</a>
+                    <a href="#location">LOCATION</a>
+                    <a href="#booking" class="btn" style="padding: 12px 28px;">BOOK NOW</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Oakville's Trusted<br>Master Barber</h1>
+            <p>35+ years of precision scissor cuts and hot towel shaves in the heart of Bronte. Heritage craft meets modern comfort.</p>
+            <a href="#booking" class="btn">BOOK YOUR CHAIR</a>
+            <p class="hero-tagline">MEMBER OF BARBERS OF ONTARIO SINCE 2009</p>
+        </div>
+    </section>
+
+    <section class="section" id="testimonials">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-size: 48px;">What Our Clients Say</h2>
+                <div style="width: 80px; height: 4px; background: var(--honey-gold); margin: 24px auto;"></div>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"The best barber in Oakville. Sayed is a true master of the craft. I've been coming here for 5 years and never disappointed."</p>
+                    <div class="client-info">
+                        <div class="avatar">JT</div>
+                        <div>
+                            <p style="font-weight: 900; font-size: 14px;">JAMES T.</p>
+                            <p style="font-size: 12px; opacity: 0.6;">Verified Client</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Professional, family-friendly environment. My son loves getting his hair cut here. Sayed knows exactly how to handle kids."</p>
+                    <div class="client-info">
+                        <div class="avatar">MR</div>
+                        <div>
+                            <p style="font-weight: 900; font-size: 14px;">MARK R.</p>
+                            <p style="font-size: 12px; opacity: 0.6;">Verified Client</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"Heritage feel with modern skills. Highly recommend the hot towel shave. It's an experience like no other in town."</p>
+                    <div class="client-info">
+                        <div class="avatar">SL</div>
+                        <div>
+                            <p style="font-weight: 900; font-size: 14px;">SARAH L.</p>
+                            <p style="font-size: 12px; opacity: 0.6;">Verified Client</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="about" style="background-color: var(--stone-beige);">
+        <div class="container">
+            <div class="split-section">
+                <div class="split-image">
+                    <img src="https://ik.imagekit.io/puuz06/edff31c5-7264-430d-8eca-ffd9488e2f64.jpg" alt="Master Barber Sayed">
+                </div>
+                <div class="split-content">
+                    <h2 style="font-size: 48px;">Meet Master Barber Sayed</h2>
+                    <p>With over 35 years of global experience, Sayed has perfected the art of barbering, blending traditional Turkish techniques with modern North American trends.</p>
+                    <p>Since opening in 2009, this shop has become a staple of the Bronte community, built on the relationships formed in the chair and the confidence clients feel when they walk out.</p>
+                    <div style="display: flex; align-items: center; gap: 16px; margin-top: 32px;">
+                        <div style="width: 40px; height: 2px; background: var(--honey-gold);"></div>
+                        <span style="text-transform: uppercase; font-weight: 900; letter-spacing: 2px; font-size: 12px;">A Tradition of Excellence</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="services">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 64px;">
+                <h2 style="font-size: 48px;">Our Services</h2>
+                <div style="width: 80px; height: 4px; background: var(--honey-gold); margin: 24px auto;"></div>
+            </div>
+
+            <div class="services-list" style="max-width: 800px; margin: 0 auto;">
+                <div class="service-item">
+                    <div>
+                        <div class="service-name">Adult Haircut</div>
+                        <div class="service-desc">Classic precision cut with neck shave</div>
+                    </div>
+                    <div class="service-price">$35</div>
+                </div>
+                <div class="service-item">
+                    <div>
+                        <div class="service-name">Master Skin Fade</div>
+                        <div class="service-desc">Zero or foil fade with sharp finish</div>
+                    </div>
+                    <div class="service-price">$40</div>
+                </div>
+                <div class="service-item">
+                    <div>
+                        <div class="service-name">Seniors (65+)</div>
+                        <div class="service-desc">Classic cut for our valued veterans</div>
+                    </div>
+                    <div class="service-price">$28</div>
+                </div>
+                <div class="service-item">
+                    <div>
+                        <div class="service-name">Children (Under 12)</div>
+                        <div class="service-desc">Kid-friendly service and style</div>
+                    </div>
+                    <div class="service-price">$25</div>
+                </div>
+                <div class="service-item">
+                    <div>
+                        <div class="service-name">Hot Towel Shave</div>
+                        <div class="service-desc">Traditional straight razor & steam</div>
+                    </div>
+                    <div class="service-price">$35</div>
+                </div>
+                <div class="service-item" style="border-bottom: none;">
+                    <div>
+                        <div class="service-name">Beard Trim & Line Up</div>
+                        <div class="service-desc">Detailed sculpting and outline</div>
+                    </div>
+                    <div class="service-price">$20</div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 64px;">
+                    <a href="#booking" class="btn">Book Your Service</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING CALENDAR SECTION -->
+    <section class="section" id="booking" style="background-color: var(--stone-beige);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 64px;">
+                <h2 style="font-size: 48px;">Book Your Appointment</h2>
+                <div style="width: 80px; height: 4px; background: var(--honey-gold); margin: 24px auto;"></div>
+                <p style="opacity: 0.7; font-size: 18px;">Select your preferred date and time below</p>
+            </div>
+            
+            <div style="background: #fff; border-radius: 16px; box-shadow: var(--shadow-premium); padding: 48px; max-width: 900px; margin: 0 auto; border: 1px solid var(--stone-beige);">
+                
+                <!-- Calendar -->
+                <div style="margin-bottom: 48px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px;">
+                        <button id="prevMonth" style="padding: 12px; background: transparent; border: none; cursor: pointer; border-radius: 8px; transition: all 0.2s;">
+                            <span class="material-symbols-outlined" style="font-size: 32px;">chevron_left</span>
+                        </button>
+                        <h3 id="currentMonth" style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 900;"></h3>
+                        <button id="nextMonth" style="padding: 12px; background: transparent; border: none; cursor: pointer; border-radius: 8px; transition: all 0.2s;">
+                            <span class="material-symbols-outlined" style="font-size: 32px;">chevron_right</span>
+                        </button>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 16px;">
+                        <div style="text-align: center; font-weight: 700; font-size: 14px; opacity: 0.6; padding: 8px;">Sun</div>
+                        <div style="text-align: center; font-weight: 700; font-size: 14px; opacity: 0.6; padding: 8px;">Mon</div>
+                        <div style="text-align: center; font-weight: 700; font-size: 14px; opacity: 0.6; padding: 8px;">Tue</div>
+                        <div style="text-align: center; font-weight: 700; font-size: 14px; opacity: 0.6; padding: 8px;">Wed</div>
+                        <div style="text-align: center; font-weight: 700; font-size: 14px; opacity: 0.6; padding: 8px;">Thu</div>
+                        <div style="text-align: center; font-weight: 700; font-size: 14px; opacity: 0.6; padding: 8px;">Fri</div>
+                        <div style="text-align: center; font-weight: 700; font-size: 14px; opacity: 0.6; padding: 8px;">Sat</div>
+                    </div>
+                    
+                    <div id="calendarDays" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;"></div>
+                </div>
+                
+                <!-- Time Slots -->
+                <div id="timeSlots" style="display: none;">
+                    <h4 style="font-weight: 900; font-size: 20px; margin-bottom: 24px;">Available Times for <span id="selectedDate"></span></h4>
+                    <div id="timeSlotGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin-bottom: 32px;"></div>
+                </div>
+                
+                <!-- Booking Form -->
+                <div id="bookingForm" style="display: none;">
+                    <h4 style="font-weight: 900; font-size: 20px; margin-bottom: 24px;">Complete Your Booking</h4>
+                    <div style="background: rgba(242, 158, 12, 0.1); padding: 24px; border-radius: 12px; margin-bottom: 32px;">
+                        <p style="font-weight: 700; margin-bottom: 8px;">📅 <span id="confirmDate"></span></p>
+                        <p style="font-weight: 700;">🕒 <span id="confirmTime"></span></p>
+                    </div>
+                    
+                    <div style="display: grid; gap: 24px; margin-bottom: 32px;">
+                        <div>
+                            <label style="display: block; font-weight: 700; margin-bottom: 8px;">Name</label>
+                            <input type="text" id="clientName" style="width: 100%; padding: 16px; border-radius: 8px; border: 1px solid var(--stone-beige); background: #fff; font-family: 'Lato', sans-serif; font-size: 16px;" placeholder="Your full name">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 700; margin-bottom: 8px;">Phone Number</label>
+                            <input type="tel" id="clientPhone" style="width: 100%; padding: 16px; border-radius: 8px; border: 1px solid var(--stone-beige); background: #fff; font-family: 'Lato', sans-serif; font-size: 16px;" placeholder="Your phone number">
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 700; margin-bottom: 8px;">Service</label>
+                            <select id="serviceType" style="width: 100%; padding: 16px; border-radius: 8px; border: 1px solid var(--stone-beige); background: #fff; font-family: 'Lato', sans-serif; font-size: 16px;">
+                                <option>Adult Haircut - $35</option>
+                                <option>Master Skin Fade - $40</option>
+                                <option>Seniors (65+) - $28</option>
+                                <option>Children (Under 12) - $25</option>
+                                <option>Hot Towel Shave - $35</option>
+                                <option>Beard Trim & Line Up - $20</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; font-weight: 700; margin-bottom: 8px;">Notes (Optional)</label>
+                            <textarea id="clientNotes" rows="3" style="width: 100%; padding: 16px; border-radius: 8px; border: 1px solid var(--stone-beige); background: #fff; font-family: 'Lato', sans-serif; font-size: 16px; resize: vertical;" placeholder="Any special requests or notes"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 16px;">
+                        <button id="backToTimes" style="flex: 1; padding: 18px 32px; border: 2px solid var(--jet-black); background: transparent; font-weight: 900; border-radius: 8px; cursor: pointer; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; font-family: 'Lato', sans-serif;">
+                            BACK
+                        </button>
+                        <button id="confirmBooking" class="btn" style="flex: 1; padding: 18px 32px;">
+                            CONFIRM BOOKING
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Success Message -->
+                <div id="successMessage" style="display: none; text-align: center; padding: 64px 32px;">
+                    <span class="material-symbols-outlined" style="font-size: 80px; color: var(--honey-gold); margin-bottom: 24px; display: inline-block;">check_circle</span>
+                    <h3 style="font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 900; margin-bottom: 16px;">Booking Confirmed!</h3>
+                    <p style="font-size: 18px; opacity: 0.7; margin-bottom: 32px;">Your appointment has been scheduled. You'll receive a confirmation shortly.</p>
+                    <button id="bookAnother" class="btn">
+                        BOOK ANOTHER
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="logistics" id="location">
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2898.397395066928!2d-79.71268392338668!3d43.39843657111586!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b604e223c6f47%3A0x6b8a8b8b8b8b8b8b!2s105%20Jones%20St%2C%20Oakville%2C%20ON%20L6L%203E7%2C%20Canada!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <div class="contact-info">
+            <h2>Hours & Contact</h2>
+            
+            <div class="info-group">
+                <span class="info-label">Operating Hours</span>
+                <div class="hours-row"><span>Monday - Friday</span> <span>9:00 AM - 7:00 PM</span></div>
+                <div class="hours-row"><span>Saturday</span> <span>9:00 AM - 5:00 PM</span></div>
+                <div class="hours-row" style="border-bottom: none;"><span>Sunday</span> <span>10:00 AM - 4:00 PM</span></div>
+            </div>
+
+            <div class="info-group">
+                <span class="info-label">Contact Details</span>
+                <a href="tel:9055827283" class="contact-link">
+                    <span class="material-symbols-outlined">call</span>
+                    (905) 582-7283
+                </a>
+                <a href="mailto:info@oakvillebarbershop.ca" class="contact-link" style="font-size: 14px; opacity: 0.8; margin-top: 20px;">
+                    <span class="material-symbols-outlined">mail</span>
+                    info@oakvillebarbershop.ca
+                </a>
+                <div style="margin-top: 32px; font-size: 14px; opacity: 0.6; line-height: 1.4;">
+                    105 Jones St, Oakville, ON L6L 3E7 <br> (Heart of Bronte)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">Oakville Barbershop</div>
+            <p style="max-width: 400px; margin: 0 auto 32px; font-size: 14px; opacity: 0.6;">Precision haircuts and traditional shaves in a modern, welcoming environment. Your seat is waiting.</p>
+            <div class="copyright">
+                &copy; 2026 Oakville Barbershop. All rights reserved. <br>
+                <a href="#" style="margin-top: 16px; display: inline-block; opacity: 0.8;">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+<script>
+// Booking System JavaScript
+const state = {
+    currentMonth: new Date().getMonth(),
+    currentYear: new Date().getFullYear(),
+    selectedDate: null,
+    selectedTime: null
+};
+
+const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+
+function renderCalendar() {
+    const firstDay = new Date(state.currentYear, state.currentMonth, 1).getDay();
+    const daysInMonth = new Date(state.currentYear, state.currentMonth + 1, 0).getDate();
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    document.getElementById('currentMonth').textContent = `${monthNames[state.currentMonth]} ${state.currentYear}`;
+    
+    const calendarDays = document.getElementById('calendarDays');
+    calendarDays.innerHTML = '';
+    
+    // Empty cells for days before month starts
+    for (let i = 0; i < firstDay; i++) {
+        const emptyDay = document.createElement('div');
+        calendarDays.appendChild(emptyDay);
+    }
+    
+    // Days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayDate = new Date(state.currentYear, state.currentMonth, day);
+        dayDate.setHours(0, 0, 0, 0);
+        const isPast = dayDate < today;
+        
+        const dayEl = document.createElement('button');
+        dayEl.className = 'calendar-day';
+        dayEl.style.cssText = `
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 700;
+            border: none;
+            background: ${isPast ? 'transparent' : 'var(--stone-beige)'};
+            opacity: ${isPast ? '0.3' : '1'};
+            cursor: ${isPast ? 'not-allowed' : 'pointer'};
+            transition: all 0.2s;
+            font-family: 'Lato', sans-serif;
+            font-size: 16px;
+        `;
+        dayEl.textContent = day;
+        dayEl.disabled = isPast;
+        
+        if (!isPast) {
+            dayEl.onmouseover = () => {
+                dayEl.style.background = 'var(--honey-gold)';
+                dayEl.style.transform = 'scale(1.05)';
+            };
+            dayEl.onmouseout = () => {
+                dayEl.style.background = 'var(--stone-beige)';
+                dayEl.style.transform = 'scale(1)';
+            };
+            dayEl.onclick = () => selectDate(day);
+        }
+        
+        calendarDays.appendChild(dayEl);
+    }
+}
+
+function selectDate(day) {
+    state.selectedDate = new Date(state.currentYear, state.currentMonth, day);
+    const dateString = state.selectedDate.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+    
+    document.getElementById('selectedDate').textContent = dateString;
+    document.getElementById('timeSlots').style.display = 'block';
+    document.getElementById('bookingForm').style.display = 'none';
+    
+    renderTimeSlots();
+}
+
+function renderTimeSlots() {
+    const times = [
+        '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM',
+        '12:00 PM', '12:30 PM', '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM',
+        '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM'
+    ];
+    
+    const grid = document.getElementById('timeSlotGrid');
+    grid.innerHTML = '';
+    
+    times.forEach(time => {
+        const isBooked = Math.random() > 0.7; // Simulate some booked slots
+        
+        const slot = document.createElement('button');
+        slot.className = 'time-slot';
+        slot.style.cssText = `
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.2s;
+            border: none;
+            cursor: ${isBooked ? 'not-allowed' : 'pointer'};
+            background: ${isBooked ? '#fee2e2' : 'var(--stone-beige)'};
+            color: ${isBooked ? '#dc2626' : 'var(--jet-black)'};
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+        `;
+        slot.textContent = time;
+        slot.disabled = isBooked;
+        
+        if (!isBooked) {
+            slot.onmouseover = () => {
+                slot.style.background = 'var(--honey-gold)';
+                slot.style.transform = 'translateY(-2px)';
+                slot.style.boxShadow = 'var(--shadow-soft)';
+            };
+            slot.onmouseout = () => {
+                slot.style.background = 'var(--stone-beige)';
+                slot.style.transform = 'translateY(0)';
+                slot.style.boxShadow = 'none';
+            };
+            slot.onclick = () => selectTime(time);
+        }
+        
+        grid.appendChild(slot);
+    });
+}
+
+function selectTime(time) {
+    state.selectedTime = time;
+    
+    const dateString = state.selectedDate.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        month: 'long', 
+        day: 'numeric',
+        year: 'numeric'
+    });
+    
+    document.getElementById('confirmDate').textContent = dateString;
+    document.getElementById('confirmTime').textContent = time;
+    
+    document.getElementById('timeSlots').style.display = 'none';
+    document.getElementById('bookingForm').style.display = 'block';
+}
+
+document.getElementById('prevMonth').onclick = () => {
+    const now = new Date();
+    const targetDate = new Date(state.currentYear, state.currentMonth - 1, 1);
+    
+    // Don't allow going to past months
+    if (targetDate < new Date(now.getFullYear(), now.getMonth(), 1)) {
+        return;
+    }
+    
+    state.currentMonth--;
+    if (state.currentMonth < 0) {
+        state.currentMonth = 11;
+        state.currentYear--;
+    }
+    renderCalendar();
+};
+
+document.getElementById('prevMonth').onmouseover = () => {
+    document.getElementById('prevMonth').style.background = 'var(--stone-beige)';
+};
+document.getElementById('prevMonth').onmouseout = () => {
+    document.getElementById('prevMonth').style.background = 'transparent';
+};
+
+document.getElementById('nextMonth').onclick = () => {
+    state.currentMonth++;
+    if (state.currentMonth > 11) {
+        state.currentMonth = 0;
+        state.currentYear++;
+    }
+    renderCalendar();
+};
+
+document.getElementById('nextMonth').onmouseover = () => {
+    document.getElementById('nextMonth').style.background = 'var(--stone-beige)';
+};
+document.getElementById('nextMonth').onmouseout = () => {
+    document.getElementById('nextMonth').style.background = 'transparent';
+};
+
+document.getElementById('backToTimes').onclick = () => {
+    document.getElementById('bookingForm').style.display = 'none';
+    document.getElementById('timeSlots').style.display = 'block';
+};
+
+document.getElementById('backToTimes').onmouseover = () => {
+    document.getElementById('backToTimes').style.background = 'var(--stone-beige)';
+};
+document.getElementById('backToTimes').onmouseout = () => {
+    document.getElementById('backToTimes').style.background = 'transparent';
+};
+
+document.getElementById('confirmBooking').onclick = () => {
+    const name = document.getElementById('clientName').value;
+    const phone = document.getElementById('clientPhone').value;
+    
+    if (!name || !phone) {
+        alert('Please fill in your name and phone number');
+        return;
+    }
+    
+    // Here you would normally send this to your backend/booking system
+    const bookingData = {
+        date: state.selectedDate,
+        time: state.selectedTime,
+        name,
+        phone,
+        service: document.getElementById('serviceType').value,
+        notes: document.getElementById('clientNotes').value
+    };
+    
+    console.log('Booking data:', bookingData);
+    
+    // You can integrate with services like:
+    // - Calendly API
+    // - Google Calendar API
+    // - Your own backend server
+    // - Email service (SendGrid, etc.)
+    // - WhatsApp Business API
+    // - SMS notification services
+    
+    document.getElementById('bookingForm').style.display = 'none';
+    document.getElementById('successMessage').style.display = 'block';
+};
+
+document.getElementById('bookAnother').onclick = () => {
+    document.getElementById('successMessage').style.display = 'none';
+    document.getElementById('clientName').value = '';
+    document.getElementById('clientPhone').value = '';
+    document.getElementById('clientNotes').value = '';
+    document.getElementById('timeSlots').style.display = 'none';
+    renderCalendar();
+};
+
+// Initialize calendar
+renderCalendar();
+</script>
+
+</body>
+</html>
